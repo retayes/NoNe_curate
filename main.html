@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Music Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Параллакс-секция */
+        .parallax {
+            background: url('https://i.imgur.com/7kQzB7a.jpg') fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00f3ff, #ff00ff);
+            mix-blend-mode: multiply;
+            opacity: 0.3;
+        }
+
+        /* Неоновый заголовок */
+        .neon-title {
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 0 0 10px #00f3ff,
+                         0 0 20px #00f3ff,
+                         0 0 40px #00f3ff;
+            animation: glow 2s infinite alternate;
+        }
+
+        /* Стили для списка треков */
+        .track-list {
+            background: #0a0a0a;
+            padding: 50px 20px;
+            min-height: 100vh;
+        }
+
+        .track-item {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .track-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Анимация свечения */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00f3ff;
+            }
+            to {
+                text-shadow: 0 0 20px #00f3ff,
+                            0 0 30px #00f3ff;
+            }
+        }
+
+        /* Кнопки */
+        .btn {
+            background: linear-gradient(45deg, #00f3ff, #ff00ff);
+            border: none;
+            padding: 10px 25px;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00f3ff;
+        }
+
+        /* Аудио-плеер */
+        audio {
+            width: 100%;
+            margin: 10px 0;
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Параллакс-заголовок -->
+    <section class="parallax">
+        <h1 class="neon-title">NEON MUSIC</h1>
+    </section>
+
+    <!-- Список треков -->
+    <div class="track-list">
+        <!-- Трек 1 -->
+        <div class="track-item">
+            <h2 style="color: #00f3ff">Cyber Dreams</h2>
+            <audio controls>
+                <source src="tracks/track1.mp3" type="audio/mpeg">
+            </audio>
+            <button class="btn" onclick="window.location.href='tracks/track1.mp3'">Скачать</button>
+        </div>
+
+        <!-- Трек 2 -->
+        <div class="track-item">
+            <h2 style="color: #ff00ff">Neon Lights</h2>
+            <audio controls>
+                <source src="tracks/track2.mp3" type="audio/mpeg">
+            </audio>
+            <button class="btn" onclick="window.location.href='tracks/track2.mp3'">Скачать</button>
+        </div>
+    </div>
+
+    <script>
+        // Параллакс-эффект для заголовка
+        window.addEventListener('scroll', () => {
+            const parallax = document.querySelector('.parallax');
+            let scroll = window.pageYOffset;
+            parallax.style.backgroundPositionY = scroll * 0.5 + 'px';
+        });
+
+        // Анимация при загрузке
+        document.querySelectorAll('.track-item').forEach(item => {
+            item.style.opacity = '0';
+            setTimeout(() => {
+                item.style.transition = 'opacity 1s, transform 0.3s';
+                item.style.opacity = '1';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
